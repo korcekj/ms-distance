@@ -18,18 +18,12 @@ import org.litote.kmongo.div
 import org.litote.kmongo.eq
 import org.litote.kmongo.or
 
-fun Application.configureRouting() {
+fun Application.distanceRoute() {
     val mongoClient: CoroutineClient by inject()
 
     val distanceAPI = DistanceAPI()
     val geocodeAPI = GeocodeAPI()
-
-    // Starting point for a Ktor app:
     routing {
-        // Root
-        get("/") {
-            call.respondText("Welcome in my ms-distance API!")
-        }
         // Minimal time distance between 2 places
         get("/distance") {
             val fromAddress = call.request.queryParameters["from"] ?: ""

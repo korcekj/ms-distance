@@ -33,7 +33,7 @@ fun Application.module() {
         modules(listOf(modules))
     }
     // Routes
-    configureRouting()
+    distanceRoute()
 }
 
 val modules = module {
