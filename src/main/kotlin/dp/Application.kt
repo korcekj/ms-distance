@@ -36,6 +36,7 @@ fun Application.module() {
     distanceRoute()
 }
 
+// Koin modules
 val modules = module {
     single {
         KMongo.createClient(

@@ -12,6 +12,9 @@ class DistanceAPI() {
     private val url: String = ConfigFactory.load().getString("ktor.distanceMatrix.uri")
     private val key: String = ConfigFactory.load().getString("ktor.distanceMatrix.apiKey")
 
+    /**
+     * Returns the list of DistanceResponse objects based on the given [fromAddress] and [toAddress] parameters
+     */
     private fun getDistances(fromAddress: String, toAddress: String): List<DistanceResponse> {
         return ClientAPI().useMany(
             listOf(
@@ -47,6 +50,9 @@ class DistanceAPI() {
         )
     }
 
+    /**
+     * Returns the list of Distance objects based on the given [fromPlace] and [toPlace] parameters
+     */
     private fun getLand(fromPlace: Place, toPlace: Place): List<Distance> {
         return getDistances(fromPlace.address, toPlace.address).map { result ->
             Distance(
@@ -58,6 +64,9 @@ class DistanceAPI() {
         }
     }
 
+    /**
+     * Returns the list of Distance objects based on the given [fromPlace] and [toPlace] parameters
+     */
     private fun getAir(fromPlace: Place, toPlace: Place): List<Distance> {
         return listOf(
             Distance(
@@ -69,6 +78,9 @@ class DistanceAPI() {
         )
     }
 
+    /**
+     * Returns the Distance objects or null based on the given [fromPlace] and [toPlace] parameters
+     */
     fun getMinDuration(fromPlace: Place, toPlace: Place): Distance? {
         return try {
             val distances = getLand(fromPlace, toPlace) + getAir(fromPlace, toPlace)

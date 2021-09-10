@@ -11,6 +11,9 @@ class GeocodeAPI {
     private val url: String = ConfigFactory.load().getString("ktor.geocode.uri")
     private val key: String = ConfigFactory.load().getString("ktor.geocode.apiKey")
 
+    /**
+     * Returns the GeocodeResponse object based on the given [address]
+     */
     private fun getLocation(address: String): GeocodeResponse {
         return ClientAPI().useOne { client ->
             client.get(url) {
@@ -20,6 +23,9 @@ class GeocodeAPI {
         }
     }
 
+    /**
+     * Returns the Place object or null based on the given [address]
+     */
     fun getPlace(address: String): Place? {
         return try {
             val location = getLocation(address)

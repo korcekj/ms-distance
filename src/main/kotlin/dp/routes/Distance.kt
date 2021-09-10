@@ -19,12 +19,16 @@ import org.litote.kmongo.eq
 import org.litote.kmongo.or
 
 fun Application.distanceRoute() {
-    val mongoClient: CoroutineClient by inject()
 
+    // Initiate DB connection
+    val mongoClient: CoroutineClient by inject()
+    // Initiate distanceMatrix API
     val distanceAPI = DistanceAPI()
+    // Initiate geocode API
     val geocodeAPI = GeocodeAPI()
+
     routing {
-        // Minimal time distance between 2 places
+        // Distance routes
         get("/distance") {
             val fromAddress = call.request.queryParameters["from"] ?: ""
             val toAddress = call.request.queryParameters["to"] ?: ""
@@ -33,6 +37,7 @@ fun Application.distanceRoute() {
                 return@get call.respond(HttpStatusCode.BadRequest, "Query arguments are missing")
             }
 
+            // Declare Distance collection
             val collection = mongoClient
                 .getDatabase("ms-distance-dev")
                 .getCollection<Distance>("distance")
@@ -50,6 +55,7 @@ fun Application.distanceRoute() {
                 return@get call.respond(distance)
             }
 
+            // Calculate place positions based on the given addresses
             val fromPlace = geocodeAPI.getPlace(fromAddress)
             val toPlace = geocodeAPI.getPlace(toAddress)
 

@@ -7,7 +7,9 @@ data class Place(
     val lat: Double?,
     val lng: Double?,
 ) {
-    // Flight duration (s)
+    /**
+     * Returns the number which represents seconds based on the given [toPlace]
+     */
     fun airplaneDurationTo(toPlace: Place): Int? {
         val distance = airPlaneDistanceTo(toPlace)
 
@@ -15,7 +17,10 @@ data class Place(
 
         return (distance / (800 * 0.27778)).toInt()
     }
-    // Distance in (m)
+
+    /**
+     * Returns the number which represents meters based on the given [toPlace]
+     */
     fun airPlaneDistanceTo(toPlace: Place): Int? {
         val (_, toLat, toLng) = toPlace
 
