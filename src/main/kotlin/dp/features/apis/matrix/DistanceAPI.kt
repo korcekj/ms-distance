@@ -81,7 +81,7 @@ class DistanceAPI() {
     /**
      * Returns the Distance objects or null based on the given [fromPlace] and [toPlace] parameters
      */
-    fun getMinDuration(fromPlace: Place, toPlace: Place): Distance? {
+    fun getMinDistance(fromPlace: Place, toPlace: Place): Distance? {
         return try {
             val distances = getLand(fromPlace, toPlace) + getAir(fromPlace, toPlace)
             return distances.minByOrNull { it.duration ?: Int.MAX_VALUE }
