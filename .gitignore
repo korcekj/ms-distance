@@ -14,7 +14,6 @@ build
 !.idea/icon.png
 out
 *.iml
-*.conf
 .vscode
 
 *.versionsBackup
