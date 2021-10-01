@@ -1,7 +1,6 @@
 package dp.service
 
-import org.litote.kmongo.coroutine.CoroutineClient
-import org.litote.kmongo.coroutine.CoroutineCollection
+import org.litote.kmongo.coroutine.CoroutineDatabase
 
 import dp.features.apis.geocode.GeocodeAPI
 import dp.features.apis.matrix.DistanceAPI
@@ -10,20 +9,21 @@ import dp.model.Place
 import kotlinx.coroutines.runBlocking
 
 import org.litote.kmongo.and
+
 import org.litote.kmongo.div
 import org.litote.kmongo.eq
 import org.litote.kmongo.or
 
 class DistanceService(
-    mongoClient: CoroutineClient
+    mongoDatabase: CoroutineDatabase
 ) : DistanceServiceInf {
 
-    private var collection: CoroutineCollection<Distance> = mongoClient
-        .getDatabase("ms-distance-dev")
-        .getCollection("distance")
+    // Initiate mongoDB collection
+    private var collection = mongoDatabase.getCollection<Distance>()
 
     // Initiate distanceMatrix API
     private val distanceAPI = DistanceAPI()
+
     // Initiate geocode API
     private val geocodeAPI = GeocodeAPI()
 
