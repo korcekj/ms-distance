@@ -16,61 +16,60 @@ import org.litote.kmongo.or
 
 class DistanceService(
     mongoClient: CoroutineClient
-) {
+) : DistanceServiceInf {
 
-    private var collection: CoroutineCollection<Distance>
+    private var collection: CoroutineCollection<Distance> = mongoClient
+        .getDatabase("ms-distance-dev")
+        .getCollection("distance")
+
     // Initiate distanceMatrix API
     private val distanceAPI = DistanceAPI()
     // Initiate geocode API
     private val geocodeAPI = GeocodeAPI()
 
-    init {
-        // Declare Distance collection
-        collection = mongoClient
-            .getDatabase("ms-distance-dev")
-            .getCollection("distance")
-    }
-
     /**
-     * Returns the Distance object or null based on the given [fromAddress] and [toAddress] parameters
+     * Returns the Distance object or null based on the given [from] and [to] parameters
      */
-    fun createDistance(fromAddress: String, toAddress: String): Distance? = runBlocking {
-        if (fromAddress.isEmpty() || toAddress.isEmpty()) return@runBlocking null
+    override fun createDistance(from: String, to: String): Distance? {
+        if (from.isEmpty() || to.isEmpty()) return null
 
-        val fromPlace = geocodeAPI.getPlace(fromAddress) ?: return@runBlocking null
-        val toPlace = geocodeAPI.getPlace(toAddress) ?: return@runBlocking null
-        val distance = distanceAPI.getMinDistance(fromPlace, toPlace) ?: return@runBlocking null
+        val fromPlace = geocodeAPI.getPlace(from) ?: return null
+        val toPlace = geocodeAPI.getPlace(to) ?: return null
+        val distance = distanceAPI.getMinDistance(fromPlace, toPlace) ?: return null
 
-        return@runBlocking try {
-            // Insert document to the database
-            collection.insertOne(distance)
-
-            distance
-        } catch (err: Throwable) {
-            println(err)
-            null
+        return runBlocking {
+            try {
+                // Insert document to the database
+                collection.insertOne(distance)
+                distance
+            } catch (err: Throwable) {
+                println(err)
+                null
+            }
         }
     }
 
     /**
-     * Returns the Distance object or null based on the given [fromAddress] and [toAddress] parameters
+     * Returns the Distance object or null based on the given [from] and [to] parameters
      */
-    fun getDistance(fromAddress: String, toAddress: String): Distance? = runBlocking {
-        if (fromAddress.isEmpty() || toAddress.isEmpty()) return@runBlocking null
+    override fun getDistance(from: String, to: String): Distance? {
+        if (from.isEmpty() || to.isEmpty()) return null
 
-        return@runBlocking try {
-            // Find distance based on the given addresses
-            val distance = collection.findOne(
-                or(
-                    and(Distance::from / Place::address eq fromAddress, Distance::to / Place::address eq toAddress),
-                    and(Distance::from / Place::address eq toAddress, Distance::to / Place::address eq fromAddress)
+        return runBlocking {
+            try {
+                // Find distance based on the given addresses
+                val distance = collection.findOne(
+                    or(
+                        and(Distance::from / Place::address eq from, Distance::to / Place::address eq to),
+                        and(Distance::from / Place::address eq to, Distance::to / Place::address eq from)
+                    )
                 )
-            )
 
-            distance ?: createDistance(fromAddress, toAddress)
-        } catch (err: Throwable) {
-            println(err)
-            null
+                distance ?: createDistance(from, to)
+            } catch (err: Throwable) {
+                println(err)
+                null
+            }
         }
     }
 
