@@ -7,13 +7,17 @@ import io.ktor.features.*
 import io.ktor.gson.*
 import io.ktor.http.*
 
+import org.koin.ktor.ext.Koin
 import org.koin.dsl.module
-import org.koin.ktor.ext.*
+import org.koin.experimental.builder.single
+import org.koin.experimental.builder.singleBy
 
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 
 import dp.routes.*
+import dp.service.DistanceService
+import dp.service.DistanceServiceInf
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
@@ -30,14 +34,15 @@ fun Application.module() {
     }
     // Koin
     install(Koin) {
-        modules(listOf(modules))
+        modules(modules)
     }
     // Routes
     distanceRoute()
 }
 
 // Koin modules
-val modules = module {
+val modules = module(createdAtStart = true) {
+    singleBy<DistanceServiceInf, DistanceService>()
     single {
         KMongo.createClient(
             ConfigFactory.load().getString("ktor.mongoDB.uri")

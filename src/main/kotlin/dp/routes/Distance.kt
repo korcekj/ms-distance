@@ -1,6 +1,6 @@
 package dp.routes
 
-import dp.service.DistanceService
+import dp.service.DistanceServiceInf
 
 import io.ktor.routing.*
 import io.ktor.application.*
@@ -9,14 +9,10 @@ import io.ktor.response.*
 
 import org.koin.ktor.ext.inject
 
-import org.litote.kmongo.coroutine.CoroutineClient
-
 fun Application.distanceRoute() {
 
-    // Initiate DB connection
-    val mongoClient: CoroutineClient by inject()
     // Initiate Distance service
-    val distanceService = DistanceService(mongoClient)
+    val distanceService by inject<DistanceServiceInf>()
 
     routing {
         // Distance routes
