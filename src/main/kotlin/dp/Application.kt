@@ -19,6 +19,7 @@ import dp.routes.*
 import dp.service.DistanceService
 import dp.service.DistanceServiceInf
 
+
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
@@ -46,6 +47,8 @@ val modules = module(createdAtStart = true) {
     single {
         KMongo.createClient(
             ConfigFactory.load().getString("ktor.mongoDB.uri")
-        ).coroutine
+        )
+            .coroutine
+            .getDatabase(ConfigFactory.load().getString("ktor.mongoDB.database"))
     }
 }
