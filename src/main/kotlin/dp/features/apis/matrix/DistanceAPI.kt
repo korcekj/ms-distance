@@ -9,7 +9,7 @@ import dp.model.Place
 
 class DistanceAPI() {
 
-    private val url: String = ConfigFactory.load().getString("ktor.distanceMatrix.uri")
+    private val url: String = ConfigFactory.load().getString("ktor.distanceMatrix.url")
     private val key: String = ConfigFactory.load().getString("ktor.distanceMatrix.apiKey")
 
     /**

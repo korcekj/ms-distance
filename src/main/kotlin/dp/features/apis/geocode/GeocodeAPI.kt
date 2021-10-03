@@ -8,7 +8,7 @@ import dp.model.Place
 
 class GeocodeAPI {
 
-    private val url: String = ConfigFactory.load().getString("ktor.geocode.uri")
+    private val url: String = ConfigFactory.load().getString("ktor.geocode.url")
     private val key: String = ConfigFactory.load().getString("ktor.geocode.apiKey")
 
     /**
