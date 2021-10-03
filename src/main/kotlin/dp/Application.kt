@@ -16,7 +16,9 @@ import org.litote.kmongo.reactivestreams.KMongo
 
 import dp.routes.*
 import dp.service.AddressService
-import dp.service.DistanceServiceInf
+import dp.service.AddressServiceInf
+import dp.service.IpService
+import dp.service.IpServiceInf
 
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
@@ -38,11 +40,13 @@ fun Application.module() {
     }
     // Routes
     addressRoute()
+    ipRoute()
 }
 
 // Koin modules
 val modules = module(createdAtStart = true) {
-    singleBy<DistanceServiceInf, AddressService>()
+    singleBy<AddressServiceInf, AddressService>()
+    singleBy<IpServiceInf, IpService>()
     single {
         KMongo.createClient(
             ConfigFactory.load().getString("ktor.mongoDB.uri")
