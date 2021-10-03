@@ -14,7 +14,7 @@ import org.litote.kmongo.div
 import org.litote.kmongo.eq
 import org.litote.kmongo.or
 
-class DistanceService(
+class AddressService(
     mongoDatabase: CoroutineDatabase
 ) : DistanceServiceInf {
 
