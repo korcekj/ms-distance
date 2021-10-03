@@ -15,7 +15,9 @@ import org.litote.kmongo.eq
 import org.litote.kmongo.or
 
 interface IpServiceInf {
-    fun createDistance(from: String, to: String): Distance?
+    fun findPairOfPlaces(p1: String, p2: String): Pair<Place?, Place?>
+    fun findDistance(from: Place, to: Place): Distance?
+    fun createDistance(from: Place, to: Place): Distance?
     fun getDistance(from: String, to: String): Distance?
 }
 
@@ -33,14 +35,48 @@ class IpService(
     private val ipwhoisAPI = IpwhoisAPI()
 
     /**
+     * Returns the Pair of Place objects or the Pair of null based on the given [p1] and [p2] parameters
+     */
+    override fun findPairOfPlaces(p1: String, p2: String): Pair<Place?, Place?> {
+        if (p1.isEmpty() || p2.isEmpty()) return Pair(null, null)
+
+        val fromPlace = ipwhoisAPI.getPlace(p1)
+        val toPlace = ipwhoisAPI.getPlace(p2)
+        return Pair(fromPlace, toPlace)
+    }
+
+    /**
      * Returns the Distance object or null based on the given [from] and [to] parameters
      */
-    override fun createDistance(from: String, to: String): Distance? {
-        if (from.isEmpty() || to.isEmpty()) return null
+    override fun findDistance(from: Place, to: Place): Distance? {
+        return runBlocking {
+            try {
+                // Find distance based on the calculated places
+                collection.findOne(
+                    or(
+                        and(
+                            Distance::from / Place::address eq from.address,
+                            Distance::to / Place::address eq to.address
+                        ),
+                        and(
+                            Distance::from / Place::address eq to.address,
+                            Distance::to / Place::address eq from.address
+                        )
+                    )
+                )
+            } catch (err: Throwable) {
+                println(err)
+                null
+            }
+        }
+    }
 
-        val fromPlace = ipwhoisAPI.getPlace(from) ?: return null
-        val toPlace = ipwhoisAPI.getPlace(to) ?: return null
-        val distance = distanceAPI.getMinDistance(fromPlace, toPlace) ?: return null
+    /**
+     * Returns the Distance object or null based on the given [from] and [to] parameters
+     */
+    override fun createDistance(from: Place, to: Place): Distance? {
+        // Calculate the minimal distance
+        val distance = distanceAPI.getMinDistance(from, to) ?: return null
 
         return runBlocking {
             try {
@@ -58,24 +94,11 @@ class IpService(
      * Returns the Distance object or null based on the given [from] and [to] parameters
      */
     override fun getDistance(from: String, to: String): Distance? {
-        if (from.isEmpty() || to.isEmpty()) return null
+        val (fromPlace, toPlace) = findPairOfPlaces(from, to)
 
-        return runBlocking {
-            try {
-                // Find distance based on the given addresses
-                val distance = collection.findOne(
-                    or(
-                        and(Distance::from / Place::address eq from, Distance::to / Place::address eq to),
-                        and(Distance::from / Place::address eq to, Distance::to / Place::address eq from)
-                    )
-                )
+        if (fromPlace == null || toPlace == null) return null
 
-                distance ?: createDistance(from, to)
-            } catch (err: Throwable) {
-                println(err)
-                null
-            }
-        }
+        return findDistance(fromPlace, toPlace) ?: createDistance(fromPlace, toPlace)
     }
 
 }
