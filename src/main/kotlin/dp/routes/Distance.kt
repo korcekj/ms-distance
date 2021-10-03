@@ -12,15 +12,15 @@ import org.koin.ktor.ext.inject
 fun Application.distanceRoute() {
 
     // Initiate Distance service
-    val distanceService by inject<DistanceServiceInf>()
+    val addressService by inject<DistanceServiceInf>()
 
     routing {
         // Distance routes
-        get("/distance") {
+        get("/address") {
             val fromAddress = call.request.queryParameters["from"] ?: ""
             val toAddress = call.request.queryParameters["to"] ?: ""
 
-            val distance = distanceService.getDistance(fromAddress, toAddress)
+            val distance = addressService.getDistance(fromAddress, toAddress)
                 ?: return@get call.respond(HttpStatusCode.BadRequest, "Distance can't be calculated")
 
             return@get call.respond(distance)
