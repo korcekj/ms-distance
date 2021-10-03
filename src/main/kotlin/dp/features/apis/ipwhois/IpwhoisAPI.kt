@@ -11,7 +11,7 @@ class IpwhoisAPI {
     private val url: String = ConfigFactory.load().getString("ktor.ipwhois.uri")
 
     /**
-     * Returns the GeocodeResponse object based on the given [ip]
+     * Returns the IpwhoisReponse object based on the given [ip]
      */
     private fun getLocation(ip: String): IpwhoisReponse {
         return ClientAPI().useOne { client ->
