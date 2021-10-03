@@ -1,6 +1,6 @@
 package dp.routes
 
-import dp.service.DistanceServiceInf
+import dp.service.AddressServiceInf
 
 import io.ktor.routing.*
 import io.ktor.application.*
@@ -12,10 +12,10 @@ import org.koin.ktor.ext.inject
 fun Application.addressRoute() {
 
     // Initiate Address service
-    val addressService by inject<DistanceServiceInf>()
+    val addressService by inject<AddressServiceInf>()
 
     routing {
-        // Distance routes
+        // Address routes
         get("/address") {
             val fromAddress = call.request.queryParameters["from"] ?: ""
             val toAddress = call.request.queryParameters["to"] ?: ""
