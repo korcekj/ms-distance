@@ -37,7 +37,7 @@ fun Application.module() {
         modules(modules)
     }
     // Routes
-    distanceRoute()
+    addressRoute()
 }
 
 // Koin modules

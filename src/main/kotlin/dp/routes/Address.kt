@@ -9,9 +9,9 @@ import io.ktor.response.*
 
 import org.koin.ktor.ext.inject
 
-fun Application.distanceRoute() {
+fun Application.addressRoute() {
 
-    // Initiate Distance service
+    // Initiate Address service
     val addressService by inject<DistanceServiceInf>()
 
     routing {

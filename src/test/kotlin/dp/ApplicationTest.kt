@@ -15,7 +15,7 @@ class ApplicationTest {
      */
     @Test
     fun testDistanceWithoutParams() = withTestApplication(Application::module) {
-        with(handleRequest(HttpMethod.Get, "/distance")) {
+        with(handleRequest(HttpMethod.Get, "/address")) {
             assertEquals(HttpStatusCode.BadRequest, response.status())
             assertEquals("Distance can't be calculated", response.content)
         }
@@ -27,7 +27,7 @@ class ApplicationTest {
      */
     @Test
     fun testDistanceWithParams() = withTestApplication(Application::module) {
-        with(handleRequest(HttpMethod.Get, "/distance?from=Slovakia&to=Russia")) {
+        with(handleRequest(HttpMethod.Get, "/address?from=Slovakia&to=Russia")) {
             val distance = Distance(
                 from = Place(address = "Slovakia", lat = 48.669026, lng = 19.699024),
                 to = Place(address = "Russia", lat = 61.52401, lng = 105.318756),
