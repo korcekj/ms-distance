@@ -14,9 +14,14 @@ import org.litote.kmongo.div
 import org.litote.kmongo.eq
 import org.litote.kmongo.or
 
+interface AddressServiceInf {
+    fun createDistance(from: String, to: String): Distance?
+    fun getDistance(from: String, to: String): Distance?
+}
+
 class AddressService(
     mongoDatabase: CoroutineDatabase
-) : DistanceServiceInf {
+) : AddressServiceInf {
 
     // Initiate mongoDB collection
     private var collection = mongoDatabase.getCollection<Distance>()
