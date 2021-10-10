@@ -19,17 +19,17 @@ class ClientAPI {
     /**
      * Returns the value of type [T] based on the given [callback] parameter
      */
-    fun<T> useOne(callback: suspend (client: HttpClient) -> T): T = runBlocking {
-        return@runBlocking useMany(listOf(callback))[0]
+    suspend fun<T> useOne(callback: suspend (client: HttpClient) -> T): T {
+        return useMany(listOf(callback))[0]
     }
 
     /**
      * Returns the list of values of type [T] based on the given [callbacks] parameter
      */
-    fun<T> useMany(callbacks: List<suspend (client: HttpClient) -> T>): List<T> = runBlocking {
-        val responses = callbacks.map { async { it(client) } }
+    suspend fun<T> useMany(callbacks: List<suspend (client: HttpClient) -> T>): List<T> {
+        val responses = callbacks.map { it(client) }
         client.close()
-        return@runBlocking responses.map { it.await() }
+        return responses
     }
 
 }

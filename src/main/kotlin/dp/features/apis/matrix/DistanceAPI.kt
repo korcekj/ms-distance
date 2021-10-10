@@ -15,7 +15,7 @@ class DistanceAPI() {
     /**
      * Returns the list of DistanceResponse objects based on the given [fromAddress] and [toAddress] parameters
      */
-    private fun getDistances(fromAddress: String, toAddress: String): List<DistanceResponse> {
+    private suspend fun getDistances(fromAddress: String, toAddress: String): List<DistanceResponse> {
         return ClientAPI().useMany(
             listOf(
                 { client ->
@@ -53,7 +53,7 @@ class DistanceAPI() {
     /**
      * Returns the list of Distance objects based on the given [fromPlace] and [toPlace] parameters
      */
-    private fun getLand(fromPlace: Place, toPlace: Place): List<Distance> {
+    private suspend fun getLand(fromPlace: Place, toPlace: Place): List<Distance> {
         return getDistances(fromPlace.address, toPlace.address).map { result ->
             Distance(
                 from = fromPlace,
@@ -81,7 +81,7 @@ class DistanceAPI() {
     /**
      * Returns the Distance objects or null based on the given [fromPlace] and [toPlace] parameters
      */
-    fun getMinDistance(fromPlace: Place, toPlace: Place): Distance? {
+    suspend fun getMinDistance(fromPlace: Place, toPlace: Place): Distance? {
         return try {
             val distances = getLand(fromPlace, toPlace) + getAir(fromPlace, toPlace)
             return distances.minByOrNull { it.duration ?: Int.MAX_VALUE }

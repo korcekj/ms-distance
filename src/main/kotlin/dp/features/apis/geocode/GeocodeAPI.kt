@@ -14,7 +14,7 @@ class GeocodeAPI {
     /**
      * Returns the GeocodeResponse object based on the given [address]
      */
-    private fun getLocation(address: String): GeocodeResponse {
+    private suspend fun getLocation(address: String): GeocodeResponse {
         return ClientAPI().useOne { client ->
             client.get(url) {
                 parameter("address", address)
@@ -26,7 +26,7 @@ class GeocodeAPI {
     /**
      * Returns the Place object or null based on the given [address]
      */
-    fun getPlace(address: String): Place? {
+    suspend fun getPlace(address: String): Place? {
         return try {
             val location = getLocation(address)
             Place(
