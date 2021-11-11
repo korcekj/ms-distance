@@ -10,6 +10,8 @@ data class GeocodeResponse(
 )
 
 data class Result(
+    @SerializedName("formatted_address")
+    val formattedAddress: String?,
     val geometry: Geometry?
 )
 

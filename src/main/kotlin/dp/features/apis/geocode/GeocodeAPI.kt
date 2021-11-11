@@ -30,7 +30,7 @@ class GeocodeAPI {
         return try {
             val location = getLocation(address)
             Place(
-                address = address,
+                address = location.results[0]?.formattedAddress ?: "",
                 lat = location.results[0]?.geometry?.location?.lat,
                 lng = location.results[0]?.geometry?.location?.lng,
             )
