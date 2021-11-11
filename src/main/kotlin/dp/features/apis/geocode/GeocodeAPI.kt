@@ -29,11 +29,14 @@ class GeocodeAPI {
     suspend fun getPlace(address: String): Place? {
         return try {
             val location = getLocation(address)
-            Place(
-                address = location.results[0]?.formattedAddress ?: "",
-                lat = location.results[0]?.geometry?.location?.lat,
-                lng = location.results[0]?.geometry?.location?.lng,
-            )
+            when(location.status) {
+                "OK" -> Place(
+                    address = "${location.results[0]?.formattedAddress}",
+                    lat = location.results[0]?.geometry?.location?.lat,
+                    lng = location.results[0]?.geometry?.location?.lng,
+                )
+                else -> null
+            }
         } catch (err: Throwable) {
             println(err)
             null

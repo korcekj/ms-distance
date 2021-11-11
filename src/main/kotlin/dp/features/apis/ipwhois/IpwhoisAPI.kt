@@ -29,11 +29,14 @@ class IpwhoisAPI {
     suspend fun getPlace(ip: String): Place? {
         return try {
             val location = getLocation(ip)
-            Place(
-                address = location.city!!,
-                lat = location.latitude,
-                lng = location.longitude,
-            )
+            when(location.success) {
+                true -> Place(
+                    address = "${location.city}, ${location.countryCode}",
+                    lat = location.latitude,
+                    lng = location.longitude,
+                )
+                else -> null
+            }
         } catch (err: Throwable) {
             println(err)
             null
