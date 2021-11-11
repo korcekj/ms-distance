@@ -13,7 +13,7 @@ class IpwhoisAPI {
     /**
      * Returns the IpwhoisReponse object based on the given [ip]
      */
-    private suspend fun getLocation(ip: String): IpwhoisReponse {
+    private suspend fun getLocation(ip: String): IpwhoisResponse {
         return ClientAPI().useOne { client ->
             client.get(url) {
                 url {
@@ -31,7 +31,7 @@ class IpwhoisAPI {
             val location = getLocation(ip)
             when(location.success) {
                 true -> Place(
-                    address = "${location.city}, ${location.countryCode}",
+                    address = "${location.city}, ${location.country}",
                     lat = location.latitude,
                     lng = location.longitude,
                 )
