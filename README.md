@@ -1,6 +1,33 @@
 # DISTANCE API (Microservice)
 
-## 1. Get the minimum time distance by specifying the location
+## Docker compose
+
+### Define image name and environment variables
+
+```yml
+version: "3.9"
+services:
+  api:
+    image: "korcekj/ms-distance:<tag>"
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URL=<mongodb url>
+      - MONGO_DB=<mongodb name>
+      - DM_API_URL=<distancematrix url>
+      - DM_API_KEY=<distancematrix api key>
+      - GC_API_URL=<geocode url>
+      - GC_API_KEY=<geocode api key>
+      - IWI_API_URL=<ipwhois url>
+```
+
+### Compose container
+
+```bash
+docker compose up -d
+```
+
+## Get the minimum time distance by specifying the location
 
 ### Request
 
@@ -25,7 +52,7 @@
 }
 ```
 
-## 2. Get the minimum time distance by specifying the ip address
+## Get the minimum time distance by specifying the ip address
 
 ### Request
 
