@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URL=
+      - MONGO_DB=
+      - DM_API_URL=
+      - DM_API_KEY=
+      - GC_API_URL=
+      - GC_API_KEY=
+      - IWI_API_URL=
