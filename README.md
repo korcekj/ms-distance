@@ -1,30 +1,32 @@
 # DISTANCE API (Microservice)
 
-## Docker compose
+## Installation
 
-### Define image name and environment variables
+### Docker
+
+#### 1. Define image name and environment variables
 
 ```yml
-version: "3.9"
-services:
-  api:
-    image: "korcekj/ms-distance:<tag>"
-    ports:
-      - "8080:8080"
-    environment:
-      - MONGO_URL=<mongodb url>
-      - MONGO_DB=<mongodb name>
-      - DM_API_URL=<distancematrix url>
-      - DM_API_KEY=<distancematrix api key>
-      - GC_API_URL=<geocode url>
-      - GC_API_KEY=<geocode api key>
-      - IWI_API_URL=<ipwhois url>
+    version: "3.9"
+    services:
+      api:
+        image: korcekj/ms-distance:<tag>
+        ports:
+          - "8080:8080"
+        environment:
+          - MONGO_URL=<mongodb url>
+          - MONGO_DB=<mongodb name>
+          - DM_API_URL=<distancematrix url>
+          - DM_API_KEY=<distancematrix api key>
+          - GC_API_URL=<geocode url>
+          - GC_API_KEY=<geocode api key>
+          - IWI_API_URL=<ipwhois url>
 ```
 
-### Compose container
+#### 2. Compose container
 
 ```bash
-docker compose up -d
+  $ docker compose up -d
 ```
 
 ## Get the minimum time distance by specifying the location
@@ -36,20 +38,20 @@ docker compose up -d
 ### Response
 
 ```json
-{
-  "from": {
-    "address": "Slovakia",
-    "lat": 48.669026,
-    "lng": 19.699024
-  },
-  "to": {
-    "address": "Russia",
-    "lat": 61.52401,
-    "lng": 105.318756
-  },
-  "distance": 5224325,
-  "duration": 23509
-}
+    {
+      "from": {
+        "address": "Slovakia",
+        "lat": 48.669026,
+        "lng": 19.699024
+      },
+      "to": {
+        "address": "Russia",
+        "lat": 61.52401,
+        "lng": 105.318756
+      },
+      "distance": 5224325,
+      "duration": 23509
+    }
 ```
 
 ## Get the minimum time distance by specifying the ip address
@@ -61,18 +63,18 @@ docker compose up -d
 ### Response
 
 ```json
-{
-  "from": {
-    "address": "Dnipro",
-    "lat": 48.464717,
-    "lng": 35.046183
-  },
-  "to": {
-    "address": "Moscow",
-    "lat": 55.755826,
-    "lng": 37.6173
-  },
-  "distance": 830024,
-  "duration": 3735
-}
+    {
+      "from": {
+        "address": "Dnipro",
+        "lat": 48.464717,
+        "lng": 35.046183
+      },
+      "to": {
+        "address": "Moscow",
+        "lat": 55.755826,
+        "lng": 37.6173
+      },
+      "distance": 830024,
+      "duration": 3735
+    }
 ```
