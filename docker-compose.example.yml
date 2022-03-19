@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   api:
-    image: "korcekj/ms-distance:<tag>"
+    image: korcekj/ms-distance:<tag>
     ports:
       - "8080:8080"
     environment:
