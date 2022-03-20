@@ -1,14 +1,11 @@
 package dp.service
 
-import org.litote.kmongo.coroutine.CoroutineDatabase
-
 import dp.features.apis.geocode.GeocodeAPI
 import dp.features.apis.matrix.DistanceAPI
 import dp.model.Distance
 import dp.model.Place
-
 import org.litote.kmongo.and
-
+import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.div
 import org.litote.kmongo.eq
 import org.litote.kmongo.or

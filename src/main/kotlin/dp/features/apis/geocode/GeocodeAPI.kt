@@ -1,10 +1,9 @@
 package dp.features.apis.geocode
 
 import com.typesafe.config.ConfigFactory
-import io.ktor.client.request.*
-
 import dp.features.apis.ClientAPI
 import dp.model.Place
+import io.ktor.client.request.*
 
 class GeocodeAPI {
 

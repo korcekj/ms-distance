@@ -2,8 +2,6 @@ package dp.features.apis
 
 import io.ktor.client.*
 import io.ktor.client.features.json.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 
 class ClientAPI {
 

@@ -1,12 +1,10 @@
 package dp.routes
 
 import dp.service.IpServiceInf
-
-import io.ktor.routing.*
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.response.*
-
+import io.ktor.routing.*
 import org.koin.ktor.ext.inject
 
 fun Application.ipRoute() {

@@ -2,9 +2,8 @@ package dp.features.apis.ipwhois
 
 import com.typesafe.config.ConfigFactory
 import dp.features.apis.ClientAPI
-import io.ktor.client.request.*
-
 import dp.model.Place
+import io.ktor.client.request.*
 
 class IpwhoisAPI {
 

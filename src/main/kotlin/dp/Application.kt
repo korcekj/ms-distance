@@ -1,24 +1,22 @@
 package dp
 
 import com.typesafe.config.ConfigFactory
-import io.ktor.server.netty.EngineMain
-import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.gson.*
-import io.ktor.http.*
-
-import org.koin.ktor.ext.Koin
-import org.koin.dsl.module
-import org.koin.experimental.builder.singleBy
-
-import org.litote.kmongo.coroutine.coroutine
-import org.litote.kmongo.reactivestreams.KMongo
-
-import dp.routes.*
+import dp.routes.addressRoute
+import dp.routes.ipRoute
 import dp.service.AddressService
 import dp.service.AddressServiceInf
 import dp.service.IpService
 import dp.service.IpServiceInf
+import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.gson.*
+import io.ktor.http.*
+import io.ktor.server.netty.*
+import org.koin.dsl.module
+import org.koin.experimental.builder.singleBy
+import org.koin.ktor.ext.Koin
+import org.litote.kmongo.coroutine.coroutine
+import org.litote.kmongo.reactivestreams.KMongo
 
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)

@@ -1,11 +1,10 @@
 package dp.features.apis.matrix
 
 import com.typesafe.config.ConfigFactory
-import io.ktor.client.request.*
-
 import dp.features.apis.ClientAPI
 import dp.model.Distance
 import dp.model.Place
+import io.ktor.client.request.*
 
 class DistanceAPI() {
 
