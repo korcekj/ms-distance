@@ -49,9 +49,9 @@ val modules = module(createdAtStart = true) {
     singleBy<IpServiceInf, IpService>()
     single {
         KMongo.createClient(
-            ConfigFactory.load().getString("ktor.mongoDB.url")
+            ConfigFactory.load().getString("database.mongoDB.url")
         )
             .coroutine
-            .getDatabase(ConfigFactory.load().getString("ktor.mongoDB.database"))
+            .getDatabase(ConfigFactory.load().getString("database.mongoDB.database"))
     }
 }

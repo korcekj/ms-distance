@@ -8,8 +8,8 @@ import dp.model.Place
 
 class GeocodeAPI {
 
-    private val url: String = ConfigFactory.load().getString("ktor.geocode.url")
-    private val key: String = ConfigFactory.load().getString("ktor.geocode.apiKey")
+    private val url: String = ConfigFactory.load().getString("apis.geocode.url")
+    private val key: String = ConfigFactory.load().getString("apis.geocode.apiKey")
 
     /**
      * Returns the GeocodeResponse object based on the given [address]

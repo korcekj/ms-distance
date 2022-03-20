@@ -9,8 +9,8 @@ import dp.model.Place
 
 class DistanceAPI() {
 
-    private val url: String = ConfigFactory.load().getString("ktor.distanceMatrix.url")
-    private val key: String = ConfigFactory.load().getString("ktor.distanceMatrix.apiKey")
+    private val url: String = ConfigFactory.load().getString("apis.distanceMatrix.url")
+    private val key: String = ConfigFactory.load().getString("apis.distanceMatrix.apiKey")
 
     /**
      * Returns the list of DistanceResponse objects based on the given [fromAddress] and [toAddress] parameters

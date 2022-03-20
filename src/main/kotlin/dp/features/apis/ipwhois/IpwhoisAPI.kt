@@ -8,7 +8,7 @@ import dp.model.Place
 
 class IpwhoisAPI {
 
-    private val url: String = ConfigFactory.load().getString("ktor.ipwhois.url")
+    private val url: String = ConfigFactory.load().getString("apis.ipwhois.url")
 
     /**
      * Returns the IpwhoisReponse object based on the given [ip]
