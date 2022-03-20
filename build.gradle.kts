@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "dp"
-version = "0.0.1"
+version = "2.2.0"
 
 application {
     mainClass.set("dp.ApplicationKt")
