@@ -10,9 +10,25 @@ data class GeocodeResponse(
 )
 
 data class Result(
-    @SerializedName("formatted_address")
-    val formattedAddress: String?,
+    @SerializedName("address_components")
+    val addressComponents: List<AddressComponent?>?,
     val geometry: Geometry?
+) {
+    /**
+     * Returns formatted address of the address_components
+     */
+    fun formattedAddress(): String? {
+        if (addressComponents != null && addressComponents.size > 1) {
+            return "${addressComponents.first()?.long_name}, ${addressComponents.last()?.short_name}"
+        }
+        return addressComponents?.firstOrNull()?.short_name
+    }
+}
+
+data class AddressComponent(
+    val long_name: String?,
+    val short_name: String?,
+    val types: List<String?>?
 )
 
 data class Geometry(

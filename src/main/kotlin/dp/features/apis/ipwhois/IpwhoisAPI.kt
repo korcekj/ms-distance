@@ -30,7 +30,7 @@ class IpwhoisAPI {
             val location = getLocation(ip)
             when(location.success) {
                 true -> Place(
-                    address = "${location.city}, ${location.country}",
+                    address = "${location.city}, ${location.country_code}",
                     lat = location.latitude,
                     lng = location.longitude,
                 )
