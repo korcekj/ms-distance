@@ -1,4 +1,4 @@
-# DISTANCE API (Microservice)
+# DISTANCE API (Microservices)
 
 ## Installation
 
@@ -30,24 +30,24 @@
 
 ### Request
 
-`GET /address?from=Slovakia&to=Russia`
+`GET /address?from=Fort%20Washakie%20WY&to=Titusville%20FL`
 
 ### Response
 
 ```json
     {
       "from": {
-        "address": "Slovakia",
-        "lat": 48.669026,
-        "lng": 19.699024
+        "address": "Fort Washakie, WY, USA",
+        "lat": 43.006346,
+        "lng": -108.882346
       },
       "to": {
-        "address": "Russia",
-        "lat": 61.52401,
-        "lng": 105.318756
+        "address": "Titusville, FL, USA",
+        "lat": 28.6122187,
+        "lng": -80.8075537
       },
-      "distance": 5224325,
-      "duration": 23509
+      "distance": 2976117,
+      "duration": 13392
     }
 ```
 
@@ -55,23 +55,23 @@
 
 ### Request
 
-`GET /ip?from=85.198.185.26&to=188.133.153.161`
+`GET /ip?from=74.81.177.208&to=68.205.155.14`
 
 ### Response
 
 ```json
     {
       "from": {
-        "address": "Dnipro",
-        "lat": 48.464717,
-        "lng": 35.046183
+        "address": "Fort Washakie, United States",
+        "lat": 43.006346,
+        "lng": -108.882346
       },
       "to": {
-        "address": "Moscow",
-        "lat": 55.755826,
-        "lng": 37.6173
+        "address": "Titusville, United States",
+        "lat": 28.6122187,
+        "lng": -80.8075537
       },
-      "distance": 830024,
-      "duration": 3735
+      "distance": 2976117,
+      "duration": 13392
     }
 ```
