@@ -37,12 +37,12 @@
 ```json
     {
       "from": {
-        "address": "Fort Washakie, WY, USA",
+        "address": "Fort Washakie, US",
         "lat": 43.006346,
         "lng": -108.882346
       },
       "to": {
-        "address": "Titusville, FL, USA",
+        "address": "Titusville, US",
         "lat": 28.6122187,
         "lng": -80.8075537
       },
@@ -62,12 +62,12 @@
 ```json
     {
       "from": {
-        "address": "Fort Washakie, United States",
+        "address": "Fort Washakie, US",
         "lat": 43.006346,
         "lng": -108.882346
       },
       "to": {
-        "address": "Titusville, United States",
+        "address": "Titusville, US",
         "lat": 28.6122187,
         "lng": -80.8075537
       },
