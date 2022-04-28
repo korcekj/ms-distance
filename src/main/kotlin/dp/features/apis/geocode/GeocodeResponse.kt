@@ -19,7 +19,9 @@ data class Result(
      */
     fun formattedAddress(): String? {
         if (addressComponents != null && addressComponents.size > 1) {
-            return "${addressComponents.first()?.long_name}, ${addressComponents.last()?.short_name}"
+            val locality = addressComponents.find { it?.types?.contains("locality") == true }
+            val country = addressComponents.find { it?.types?.contains("country") == true }
+            return "${locality?.long_name}, ${country?.short_name}"
         }
         return addressComponents?.firstOrNull()?.short_name
     }
@@ -35,7 +37,7 @@ data class Geometry(
     val location: Location?
 )
 
-data class Location (
+data class Location(
     val lat: Double?,
     val lng: Double?,
 )
